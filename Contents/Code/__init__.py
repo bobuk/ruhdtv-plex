@@ -47,12 +47,14 @@ def ValidatePrefs():
     else:
         return MessageContainer( "Error",   "You need to provide both a user and password" )
 
-def Authentificate():
+def Authentificate(cacheTime=CACHE_1WEEK):
     if Prefs['username'] and Prefs['password']:
         req = HTTP.Request(SITE, values = {
             'login' : Prefs["username"],
             'password' : Prefs["password"]}, cacheTime=CACHE_1WEEK)
         if 'search' not in str(req.content):
+            if cacheTime != 0:
+                return Authentificate(cacheTime=0)
             Log("Oooops, wrong pass or no creds")
             return False
         else:
@@ -112,14 +114,13 @@ def Serials(title2, filter):
                                  rating_key = sid,
                                  title = title, 
                                  summary = summary, 
-                                 art = poster, thumb = thumb))
+                                 art = poster, thumb = poster))
         return dir
     else:
         rss = XML.ElementFromURL(S_RSS_PATH, headers = {'Cookie': Dict['Cookies']})
         for item in rss.xpath('//item'):
             title = item.xpath('./title')[0].text.strip()
-            thumb = item.xpath('./tumbnail')[0].text
-            Log(thumb)
+            thumb = item.xpath('./image')[0].text
             eid = item.xpath('./link')[0].text.split('/')[4]
             dir.add(EpisodeObject(
                 key=Callback(Episode, eid = eid),
@@ -150,7 +151,13 @@ def Serial(sid, title, mark):
             eid = item.xpath('./id_episodes')[0].text
             server = item.xpath('./server')[0].text
             full_title = "%02d-%02d. %s" % (season_num, episode_num, title)
-            thumb=SITE + ("hd/%s/sc/%02d-%02d.jpg" % (mark, season_num, episode_num))
+            
+            if server and len(server) > 0:
+                turl = "http://msk1.hdout.tv/"
+            else:
+                turl = "http://msk.hdout.tv/"
+            thumb = turl + ("hd/%s/sc/%02d-%02d.jpg" % (mark, season_num, episode_num))
+
             dir.add(EpisodeObject(
                 key=Callback(Episode, eid = eid),
                 rating_key='hdouttv' + '.' + str(eid),
