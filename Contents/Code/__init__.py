@@ -148,9 +148,10 @@ def Serial(sid, title, mark):
             season_num = int(item.xpath('./snum')[0].text)
             episode_num = int(item.xpath('./enum')[0].text)
             title = item.xpath('./title')[0].text
+            etitle = item.xpath('./etitle')[0].text
             eid = item.xpath('./id_episodes')[0].text
             server = item.xpath('./server')[0].text
-            full_title = "%02d-%02d. %s" % (season_num, episode_num, title)
+            full_title = "%02d-%02d. %s" % (season_num, episode_num, title if title else etitle)
             
             if server and len(server) > 0:
                 turl = "http://msk1.hdout.tv/"
