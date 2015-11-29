@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-    <dict>
-        <key>CFBundleIdentifier</key>
-        <string>com.plexapp.plugins.hdouttv</string>
-        <key>CFBundleVersion</key>
-        <string>2.0</string>
-        <key>PlexClientPlatforms</key>
-        <string>*</string>
-        <key>PlexFrameworkVersion</key>
-        <string>2</string>
-        <key>PlexPluginRegions</key>
-        <array>
-            <string>US</string>
-            <string>RU</string>
-        </array>
-        <key>PlexMediaContainer</key>
-        <array>
-            <string>MP4</string>
-        </array>
-        <key>PlexPluginMode</key>
-        <string>AlwaysOn</string>
-        <key>PlexPluginDebug</key>
-        <string>1</string>
-    </dict>
+	<dict>
+		<key>CFBundleIdentifier</key>
+		<string>com.plexapp.plugins.hdouttv</string>
+		<key>PlexFrameworkVersion</key>
+		<string>2</string>
+		<key>PlexPluginClass</key>
+		<string>Content</string>
+		<key>PlexClientPlatforms</key>
+		<string>*</string>
+		<key>PlexMediaContainer</key>
+		<array>
+			<string>MP4</string>
+		</array>
+		<key>PlexAudioCodec</key>
+		<array>
+			<string>ACC</string>
+		</array>
+		<key>PlexVideoCodec</key>
+		<array>
+			<string>H264</string>
+		</array>
+	    <key>PlexPluginDebug</key>
+	    <string>1</string>
+
+	</dict>
 </plist>
